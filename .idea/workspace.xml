@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="734a425d-5aad-4415-8534-75d23f02db50" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/code/js/01-数据类型.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/js/02-函数.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/js/03-es5继承.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/js/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/code/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +59,17 @@
       <option name="presentableId" value="Default" />
       <updated>1590753920626</updated>
       <workItem from="1590753924188" duration="914000" />
+      <workItem from="1590823980929" duration="190000" />
+      <workItem from="1591172912576" duration="939000" />
     </task>
+    <task id="LOCAL-00001" summary="ts  day 02">
+      <created>1590824006081</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1590824006081</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -72,13 +77,20 @@
     <option name="exactExcludedFiles">
       <list>
         <option value="$PROJECT_DIR$/code/index.js" />
+        <option value="$PROJECT_DIR$/code/index.js" />
       </list>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="ts  day 02" />
+    <option name="LAST_COMMIT_MESSAGE" value="ts  day 02" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="525" y="169" key="CommitChangelistDialog2" timestamp="1590824005425">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="525" y="169" key="CommitChangelistDialog2/0.0.1920.1200@0.0.1920.1200" timestamp="1590824005425" />
     <state x="818" y="504" key="Github.ShareDialog" timestamp="1590754054072">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
@@ -91,5 +103,9 @@
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="461" y="239" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1590807568101" />
+    <state x="560" y="340" key="Vcs.Push.Dialog.v2" timestamp="1590824015815">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="560" y="340" key="Vcs.Push.Dialog.v2/0.0.1920.1200@0.0.1920.1200" timestamp="1590824015815" />
   </component>
 </project>

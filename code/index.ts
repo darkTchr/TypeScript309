@@ -1,99 +1,285 @@
-//泛型定义
+import getData from './modules/db';
+/*
+    装饰器 : 是一种特殊类型的声明 , 他能够被附加到类的声明,方法, 属性,参数上 , 可以修改类的行为
 
-// Array<number>
+    通俗的讲 , 装饰器就是 一个方法 , 可以将行为注入到 类的声明,方法, 属性,参数上
 
-// fn(str:string):string
-// fn(str:any):any  --> fn('abc'){ return 666}
+    常见的装饰器 : 类装饰器 , 属性装饰器 , 方法装饰器 , 参数装饰器
 
-// 软件工程中  我们不仅需要创建良好的api , 也要考虑重用性
-// 组件不仅能支持当前的数据类型 , 同时也能支持未知的数据类型 , 提高灵活性
-// java  c#  
-// 泛型就是解决 了类   函数   接口  的复用性 , 以及对不特定数据类型的支持
+    写法 : 普通(无法传参) , 装饰器工厂(可传参)
 
-// <T>  具体指什么类型 , 调用的时候传入来决定
+    非常大的成就 , es7 标准特性之一
+*/
+
+//类装饰器
+
+// function logClass(params:any){
+//     console.log(params); // 当前的类
+
+//     params.prototype.apiUrl = 'http://www.bukaedu.com'
+//     params.prototype.run  = function(){
+//         console.log('我run了');
+        
+//     }
+    
+// }
+
+
+// @logClass
+// class HttpClient {
+//     constructor(){}
+//     getData(){}
+// }
+
+// var http:any = new HttpClient();
+
+// http.run();
+// console.log(http.apiUrl);
+
+
+// function logClass(target:any){
+//     console.log(target);
+    
+//     return class extends target {
+//         apiUrl:any = '我是改后的数据'
+
+//         getData(){
+//             this.apiUrl = this.apiUrl + "-------"
+//             console.log(this.apiUrl);
+            
+//         }
+//     }
+// }
 
 
 
 
-//泛型函数
+// @logClass
+// class HttpClient{
+//     public apiUrl:string | undefined
 
-function getData<T>(value:T):T{
-    return value
+//     constructor(){
+//         this.apiUrl = '我是构造器里面的apiUrl'
+//     }
+
+//     getData(){
+//         console.log(this.apiUrl);
+        
+//     }
+// }
+
+// var http = new HttpClient();
+
+// http.getData();
+
+//属性装饰器  , 传入两个参数 
+// 1. 对于静态成员来说   类的构造函数 会被传入 , 对于 实例 , 类的原型 传入
+// 2.  成员的名字
+
+
+// function logClass(params:string){
+//     return function(target:any){
+       
+//     }
+// }
+
+// function logProperty(params:string){
+//     return function(target:any,attr:any){
+//         console.log(attr,'---');
+//         console.log(target,'===');
+
+//         //变量属性名 就这么用
+//         target[attr] = params
+//     }
+// }
+
+// // @logClass
+// class HttpClient {
+    
+
+//     @logProperty('我是参数')
+//     public url:any | undefined
+
+//     constructor(){}
+
+//     getData(){
+//         console.log(this.url);
+//     }
+// }
+
+// var http = new HttpClient();
+// http.getData();
+
+// 方法装饰器 
+
+// 参数: 
+
+//1. 对于静态成员  构造函数 , 对于实例    原型对象
+//2. 成员的名字
+//3. 成员的属性描述符
+
+
+// function get(params:string){
+//     return function(target:any,methodName:any,desc:any){
+//         console.log(target,'1');
+//         console.log(methodName,'2');
+//         console.log(desc,'3');
+        
+//         // target.apiUrl = 'http://www.baidi.com'
+
+//         // target.run= function(){
+//         //     console.log('runrurnurn');
+            
+//         // }
+
+//         //保存当前方法
+
+//         var oMethod = desc.value
+
+//         desc.value = function (...args:any[]){
+//             args = args.map((val)=>{
+//                 return String(val)
+//             })
+//             // js高级
+//             oMethod.apply(this,args)
+//         }
+
+//     }
+// }
+
+
+// class HttpClient {
+    
+
+//     public url:any | undefined
+
+//     constructor(){}
+
+//     @get('我是一条信息')
+//     getData(...args:any[]){
+//         // console.log(this.url);
+
+//         console.log(args);
+//         console.log('我是getData里面的方法');
+        
+        
+
+//     }
+// }
+
+// var http:any = new HttpClient();
+// // http.getData();
+
+// // http.run()
+
+// // console.log(http.apiUrl);
+
+// http.getData(123,'xxxx');
+
+//参数装饰器
+//当函数被调用 , 涉及到传参 
+// 参数: 1.  对于静态成员  构造函数 , 对于实例    原型对象 2. 方法的名字 3. 在参数列表中的索引
+
+function logParams (params:any){
+    return function(target:any,methodName:any,paramsIndex:any){
+        target.apiurl = 'xxxxxx'
+    }
+}
+
+class HttpClient{
+    public url:any |undefined
+    constructor(){}
+
+    getData(@logParams('我是一整个装饰器的参数') uid:any){
+            console.log(uid);
+            
+    }
+}
+
+var http = new HttpClient();
+
+http.getData('12345678');
+console.log(http.apiurl);
+
+
+// 执行顺序 
+
+// 属性 > 方法 >  方法参数 > class
+
+//如果有多个同样的装饰器 , 会先执行 后面的
+
+//案例
+
+
+function logClass1(params:string){
+    return function(target:any){
+      console.log('类装饰器1')
+    }
+}
+
+function logClass2(params:string){
+    return function(target:any){
+      console.log('类装饰器2')
+    }
+}
+
+function logAttribute1(params?:string){
+    return function(target:any,attrName:any){
+      console.log('属性装饰器1')
+    }
+}
+
+function logAttribute2(params?:string){
+    return function(target:any,attrName:any){
+      console.log('属性装饰器2')
+    }
+}
+
+function logMethod1(params?:string){
+    return function(target:any,attrName:any,desc:any){
+      console.log('方法装饰器1')
+    }
+}
+function logMethod2(params?:string){
+    return function(target:any,attrName:any,desc:any){
+      console.log('方法装饰器2')
+    }
 }
 
 
-getData<number>(666);
-getData<string>('123');
-// getData<number>('123');     x
 
-
-function getData2<T>(value:T,value2:T):any{
-    var sum:T = value = value2;
-    return '我们得到的数据是: '+ sum;
+function logParams1(params?:string){
+    return function(target:any,attrName:any,desc:any){
+      console.log('方法参数装饰器1')
+    }
 }
 
-console.log(getData2(99,33));
+function logParams2(params?:string){
+    return function(target:any,attrName:any,desc:any){
+      console.log('方法参数装饰器2')
+    }
+}
 
 
 
-//泛型类
-
-
-class MinClas<T> {
-    public list:T[] = [];
-
-    add(value:T):void{
-        this.list.push(value);
+@logClass1('http://www.itying.com/api')
+@logClass2('xxxx')
+class HttpClient{
+    @logAttribute1()
+    @logAttribute2()
+    public apiUrl:string | undefined;
+    constructor(){
     }
 
+    @logMethod1()
+    @logMethod2()
+    getData(){
+        return true;
+    }
 
-    min():T{
-        var minNum = this.list[0];
-        for(var i = 0 ; i < this.list.length ; i++){
-            //this.list[i]
-            if(this.list[i] < minNum){
-                minNum = this.list[i]
-            }
-        }
+    setData(@logParams1() attr1:any,@logParams2() attr2:any,){
 
-        return minNum;
     }
 }
 
-
-var m1 = new MinClas<number>();
-m1.add(1);
-m1.add(17);
-m1.add(91);
-
-console.log(m1.min());
-
-
-
-var m2 = new MinClas<string>();
-// ascii    字典
-m2.add("c");
-m2.add("a");
-m2.add("v");
-
-console.log(m2.min());
-
-
-
-//泛型接口
-
-
-interface ConfigFn<T>{
-    (value:T):T;
-}
-function getData3<T>(value:T):T{
-    return value
-}
-
-
-var myGetData:ConfigFn<string> = getData3;
-
-console.log(myGetData('abc'))
-
-
-//  把类作为参数类型的泛型类  ?
+var http:any=new HttpClient();
